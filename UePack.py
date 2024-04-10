@@ -83,6 +83,7 @@ if package_type == 'application':
     command += ' -stage'
     command += ' -pak'
     command += ' -archive'
+    command += ' -prereqs'
     command += ' -archivedirectory="' + output_directory + '"'
 
 elif package_type == 'plugin':
