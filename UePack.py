@@ -65,4 +65,29 @@ print('Output directory: ' + output_directory)
 
 uat_path = engine_location + '\\Engine\\Build\\BatchFiles\\RunUAT.bat'
 
+command = uat_path
+
+if package_type == 'application':
+    command += ' BuildCookRun'
+    command += ' -project="' + manifest + '"'
+    command += ' -platform=""'
+    command += ' -clientconfig=""'
+    command += ' -serverconfig=""'
+    command += ' -noP4'
+    command += ' -Compressed'
+    command += ' -cook'
+    command += ' -allmaps'
+    command += ' -build'
+    command += ' -stage'
+    command += ' -pak'
+    command += ' -archive'
+    command += ' -archivedirectory="' + output_directory + '"'
+elif package_type == 'plugin':
+    command += ' BuildPlugin'
+    command += ' -Plugin="' + manifest + '"'
+    command += ' -Package="' + output_directory + '"'
+    command += ' -CreateSubFolders'
+
+print(command)
+
 exit(0)
