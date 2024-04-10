@@ -10,7 +10,7 @@ argument_parser.add_argument('-type', choices=['application', 'plugin'])
 argument_parser.add_argument('-engine')
 argument_parser.add_argument('-output')
 argument_parser.add_argument('-platform', default="Win64")
-argument_parser.add_argument('-config', default="release")
+argument_parser.add_argument('-config', default="Shipping")
 
 arguments = argument_parser.parse_args()
 
@@ -93,7 +93,7 @@ elif package_type == 'plugin':
 
 print(command)
 
-return_code = os.system(command)
+return_code = os.system('"' + command + '"')
 if return_code != 0:
     exit(return_code)
 
