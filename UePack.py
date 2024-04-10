@@ -1,6 +1,7 @@
 import os;
 import argparse;
 import json;
+import winreg;
 
 argument_parser = argparse.ArgumentParser()
 
@@ -48,9 +49,20 @@ if arguments.output is not None:
 else:
     output_directory = os.getcwd()
 
+try:
+    engine_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SOFTWARE\\EpicGames\\Unreal Engine\\' + engine_version, 0, winreg.KEY_READ | winreg.KEY_WOW64_64KEY)
+    engine_location = engine_installed = winreg.QueryValueEx(engine_key, 'InstalledDirectory')[0]
+    winreg.CloseKey(engine_key)
+except Exception as ex:
+    print('Could not find UE' + engine_version)
+    exit(-1)
+
 print('Manifest: ' + manifest)
 print('Type: ' + package_type)
 print('Engine version: ' + engine_version)
+print('Engine location: ' + engine_location)
 print('Output directory: ' + output_directory)
+
+uat_path = engine_location + '\\Engine\\Build\\BatchFiles\\RunUAT.bat'
 
 exit(0)
