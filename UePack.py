@@ -9,6 +9,8 @@ argument_parser.add_argument('-manifest')
 argument_parser.add_argument('-type', choices=['application', 'plugin'])
 argument_parser.add_argument('-engine')
 argument_parser.add_argument('-output')
+argument_parser.add_argument('-platform', default="Win64")
+argument_parser.add_argument('-config', default="release")
 
 arguments = argument_parser.parse_args()
 
@@ -70,9 +72,9 @@ command = '"' + uat_path + '"'
 if package_type == 'application':
     command += ' BuildCookRun'
     command += ' -project="' + manifest + '"'
-    command += ' -platform=""'
-    command += ' -clientconfig=""'
-    command += ' -serverconfig=""'
+    command += ' -platform="' + arguments.platform + '"'
+    command += ' -clientconfig="' + arguments.config + '"'
+    command += ' -serverconfig="' + arguments.config + '"'
     command += ' -noP4'
     command += ' -Compressed'
     command += ' -cook'
@@ -82,7 +84,7 @@ if package_type == 'application':
     command += ' -pak'
     command += ' -archive'
     command += ' -archivedirectory="' + output_directory + '"'
-    
+
 elif package_type == 'plugin':
     command += ' BuildPlugin'
     command += ' -Plugin="' + manifest + '"'
