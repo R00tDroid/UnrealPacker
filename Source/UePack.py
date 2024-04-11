@@ -2,6 +2,7 @@ import os;
 import argparse;
 import json;
 import winreg;
+import sys;
 
 argument_parser = argparse.ArgumentParser()
 
@@ -11,6 +12,10 @@ argument_parser.add_argument('-engine')
 argument_parser.add_argument('-output')
 argument_parser.add_argument('-platform', default="Win64")
 argument_parser.add_argument('-config', default="Shipping")
+
+if len(sys.argv)==1:
+    argument_parser.print_help(sys.stderr)
+    sys.exit(1)
 
 arguments = argument_parser.parse_args()
 
