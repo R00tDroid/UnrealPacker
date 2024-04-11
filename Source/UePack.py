@@ -9,7 +9,7 @@ argument_parser = argparse.ArgumentParser(description='An automation tool to pac
 argument_parser.add_argument('-manifest', help="Path to the project or plugin manifest. This is a .uproject or .uplugin file.")
 argument_parser.add_argument('-type', choices=['application', 'plugin'], help="Override automatic type detection based on the manifest. This controls whether a project will be packaged, or a plugin.")
 argument_parser.add_argument('-engine', help="Set the engine version to use. For projects this is automatically detected, but can be overridden. For plugins this argument is required.")
-argument_parser.add_argument('-output', help="Output directory where the package will be generated")
+argument_parser.add_argument('-output', help="Output directory where the package will be generated.")
 argument_parser.add_argument('-platform', default="Win64", help="Target platform. Only required for projects.")
 argument_parser.add_argument('-config', default="Shipping", help="Target configuration. Only required for projects.")
 
