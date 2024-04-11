@@ -5,6 +5,7 @@ import winreg
 import sys
 import subprocess
 
+# Parse arguments from commandline
 argument_parser = argparse.ArgumentParser(description='An automation tool to package Unreal Engine projects or plugins.')
 
 argument_parser.add_argument('-manifest', help="Path to the project or plugin manifest. This is a .uproject or .uplugin file.")
@@ -20,6 +21,7 @@ if len(sys.argv) == 1:
 
 arguments = argument_parser.parse_args()
 
+# Verify and process arguments
 if arguments.manifest is None:
     print('Project/plugin manifest path not set')
     exit(-1)
@@ -30,6 +32,7 @@ if not os.path.isfile(manifest):
     print('Could not find project/plugin manifest: ' + manifest)
     exit(-1)
 
+# Determine project type
 if arguments.type is not None:
     package_type = arguments.type
 else:
@@ -42,6 +45,7 @@ else:
         print('Could not identify manifest type: ' + manifest_extension)
         exit(-1)
 
+# Determine engine version
 if arguments.engine is not None:
     engine_version = arguments.engine
 elif package_type == 'application':
@@ -57,6 +61,7 @@ if arguments.output is not None:
 else:
     output_directory = os.getcwd()
 
+# Find installed engine version
 try:
     engine_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, 'SOFTWARE\\EpicGames\\Unreal Engine\\' + engine_version, 0, winreg.KEY_READ | winreg.KEY_WOW64_64KEY)
     engine_location = engine_installed = winreg.QueryValueEx(engine_key, 'InstalledDirectory')[0]
@@ -65,14 +70,15 @@ except Exception as ex:
     print('Could not find UE' + engine_version)
     exit(-1)
 
+# Print info
 print('Manifest: ' + manifest)
 print('Type: ' + package_type)
 print('Engine version: ' + engine_version)
 print('Engine location: ' + engine_location)
 print('Output directory: ' + output_directory)
 
+# Prepare and run package command
 uat_path = engine_location + '\\Engine\\Build\\BatchFiles\\RunUAT.bat'
-
 command = '"' + uat_path + '"'
 
 if package_type == 'application':
@@ -97,8 +103,6 @@ elif package_type == 'plugin':
     command += ' -Plugin="' + manifest + '"'
     command += ' -Package="' + output_directory + '"'
     command += ' -CreateSubFolders'
-
-print(command)
 
 return_code = subprocess.call(command, shell=False)
 exit(return_code)
