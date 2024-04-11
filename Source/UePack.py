@@ -1,8 +1,9 @@
-import os;
-import argparse;
-import json;
-import winreg;
-import sys;
+import os
+import argparse
+import json
+import winreg
+import sys
+import subprocess
 
 argument_parser = argparse.ArgumentParser(description='An automation tool to package Unreal Engine projects or plugins.')
 
@@ -99,8 +100,5 @@ elif package_type == 'plugin':
 
 print(command)
 
-return_code = os.system('"' + command + '"')
-if return_code != 0:
-    exit(return_code)
-
-exit(0)
+return_code = subprocess.call(command, shell=False)
+exit(return_code)
