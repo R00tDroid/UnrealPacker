@@ -15,7 +15,7 @@ argument_parser.add_argument('-config', default="Shipping")
 
 if len(sys.argv)==1:
     argument_parser.print_help(sys.stderr)
-    sys.exit(1)
+    exit(1)
 
 arguments = argument_parser.parse_args()
 
