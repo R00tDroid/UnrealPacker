@@ -1,6 +1,10 @@
 # UnrealPacker
 A commandline tool to automatically package Unreal Engine projects or plugins
 
+---
+
+[![CodeFactor](https://www.codefactor.io/repository/github/r00tdroid/unrealpacker/badge)](https://www.codefactor.io/repository/github/r00tdroid/unrealpacker)
+
 ## Arguments
 | Argument | Options | Description |
 | --- | --- | --- |
